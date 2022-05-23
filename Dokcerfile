@@ -1,0 +1,9 @@
+FROM centos:8
+RUN cd /etc/yum.repos.d/
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+RUN yum install java-1.8.0-openjdk-demo.x86_64 -y
+WORKDIR /tmp
+COPY hello-world-spring-boot-pom-0.0.1-SNAPSHOT.jar /tmp
+EXPOSE 8080
+CMD [ "java", "-jar", "hello-world-spring-boot-pom-0.0.1-SNAPSHOT.jar" ]
